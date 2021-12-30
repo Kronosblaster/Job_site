@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<div style="display:none" id="email_session">{{email}}</div>
+<html>
+
+<head>
+  <title>Hello {{name}}</title>
+  <style>
+    #newJob_button{
+      position: absolute;
+      top:90px;
+      left:500px;
+    }
+    .logout{
+      position: absolute;
+      top:90px;
+      left:440px;
+    }
+  </style>
+  <script type="text/javascript">
+    const url1='getJobData/';
+    const url2='getJobDataAll/';
+
+    function dataGet_E(url,table_name){
+    data=fetch(url).then(data=>{return data.json()}).then(
+    data=>{
+      console.log(data)
+       var table=document.getElementById(table_name)
+        for(i=0;i<data.length;i++){
+          row = document.createElement("tr");
+          cellA = document.createElement("td");
+          cellL = document.createElement("td");
+          cellF = document.createElement("td");
+
+          view  = document.createElement("a");
+          add  = document.createElement("a");
+
+          char1=document.createElement("text");
+          char1.innerHTML=" | "
+          
+
+          add.innerHTML="Add"
+          add.href=""
+          view.innerHTML="View"
+          view.href=""
+          cellF.append(view)
+          cellF.append(char1)
+          
+
+          if(data[i].email==document.getElementById('email_session').innerHTML){
+            remove=document.createElement("a");
+            remove.innerHTML="Remove"
+            remove.href=""
+            cellF.append(remove)
+
+            char2=document.createElement("text");
+            char2.innerHTML=" | "
+            cellF.append(char2)
+
+            edit=document.createElement("a");
+            edit.innerHTML="Edit"
+            edit.href=""
+            cellF.append(edit)
+
+            char3=document.createElement("text");
+            char3.innerHTML=" | "
+            cellF.append(char3)
+          }
+          
+          
+          cellA.innerHTML=data[i].title
+          cellL.innerHTML=data[i].location
+          
+          cellF.append(add)
+
+          table.appendChild(row);
+          row.appendChild(cellA);
+          row.appendChild(cellL);
+          row.appendChild(cellF)
+
+           }
+
+          } )
+            }
+
+    dataGet_E(url2,"job_table_all")
+    
+    function dataGet_User(url,table_name){
+    data=fetch(url).then(data=>{return data.json()}).then(
+    data=>{
+      console.log(data)
+       var table=document.getElementById(table_name)
+        for(i=0;i<data.length;i++){
+          
+          row = document.createElement("tr");
+          cellA = document.createElement("td");
+          cellL=document.createElement("td");
+
+          char1=document.createElement("text");
+          char1.innerHTML=" | "
+          char2=document.createElement("text");
+          char2.innerHTML=" | "
+
+          view=document.createElement("a");
+          view.innerHTML="View"
+          view.href=""
+          done=document.createElement("a");
+          done.innerHTML="Done"
+          done.href=""
+          giveup=document.createElement("a");
+          giveup.innerHTML="Give up"
+          giveup.href=""
+
+          cellL.appendChild(view)
+          cellL.appendChild(char1)
+          cellL.appendChild(done)
+          cellL.appendChild(char2)
+          cellL.appendChild(giveup)
+
+          cellA.innerHTML=data[i].title
+          
+          table.appendChild(row);
+          row.appendChild(cellA);
+          row.appendChild(cellL);
+          
+           }
+
+          } )
+            }
+    
+    
+    dataGet_User(url1,"job_table")
+  
+  </script>
+</head>
+
+
+
+<body>
+  <h1>Hello {{name}}!</h1>
+  <div id="job"></div>
+  <h1>Everybody's job</h1>
+      <table border="1" width="600" id="job_table_all">
+          <tr>
+          <td>Job</td>
+          <td>Location </td>
+          <td>Action</td>
+          </tr>
+          <tr>
+            
+          </tr>
+      </table>
+
+
+     
+
+      <h1>{{name}}'s job</h1>
+      <table border="1" width="600" id="job_table">
+          <tr>
+          <td>Job</td>
+          
+          <td>Action</td>
+          </tr>
+      </table>
+
+      <div class="logout"><a href="logout">Logout</a></div>
+      <button onclick="window.location.href='newJob'" id="newJob_button">
+        New Job
+      </button>
+
+      <div class="message">{% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}</div>
+</body>
+
+</html>
