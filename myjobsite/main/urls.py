@@ -13,5 +13,5 @@ urlpatterns = [
     path('dashboard/logout', views.logout_request,name="logout"),
     path('dashboard/getJobData/',views.getJobData),
     path('dashboard/getJobDataAll/',views.getJobDataAll),
-    path('myjobs',views.my_jobs)
+    path('dashboard/myjobs/',views.my_jobs,name="myjobs")
 ]

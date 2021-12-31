@@ -6,10 +6,11 @@ from django.contrib.auth import authenticate,logout
 from django.contrib.auth.models import User
 import json
 from .forms import AdminRegistrationForm
-from .models import Jobs,added_jobs
+from .models import Jobs,MyJobs
 from django.contrib import messages
 from django.utils.timezone import localdate
 from rest_framework.renderers import JSONRenderer
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 
 
 def register(request):
@@ -95,7 +96,7 @@ def add_job(request):
     posted_on=localdate()
     #print(title,location,email,category,description,posted_by,posted_on)
     
-    job=Jobs(title,location,email,category,description,posted_by,posted_on)
+    job=Jobs(title=title,location=location,email=email,category=category,description=description,posted_by=posted_by,posted_on=posted_on)
     
    # print("Hello")
     
@@ -110,7 +111,7 @@ def logout_request(request):
 
 def getJobData(request):
     jobData=list(Jobs.objects.values().filter(email=request.session['username']))
-    print(Jobs.objects.values().filter(email=request.session['username']))
+    #print(Jobs.objects.values().filter(email=request.session['username']))
     content=JSONRenderer().render(jobData)
     return HttpResponse(content,content_type="application/json")
 
@@ -119,8 +120,12 @@ def getJobDataAll(request):
     content=JSONRenderer().render(jobData)
     return HttpResponse(content,content_type="application/json")
 
+@csrf_exempt
 def my_jobs(request):
-    job=added_jobs(request.session['username'])
-    print(job.id)
+    #job=MyJobs(email=request.session['username'],title=request.POST.get(''))
+    #job.save()
+    #print(job.email)
+    print("hi")
+    print(request.body)
     return redirect('dashboard')
 

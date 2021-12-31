@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div style="display:none" id="email_session">{{email}}</div>
+<div style="display:none" id="email_session" name="email_session">{{email}}</div>
 <html>
 
 <head>
@@ -16,15 +16,32 @@
       left:440px;
     }
   </style>
+
   <script type="text/javascript">
+
+function click(clicked,url) {
+        console.log(clicked)
+        console.log("hello")
+
+            }
+
     const url1='getJobData/';
     const url2='getJobDataAll/';
+
+    function send_job_id(url,job_id){
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', url);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.send(job_id);
+         }
 
     function dataGet_E(url,table_name){
     data=fetch(url).then(data=>{return data.json()}).then(
     data=>{
       console.log(data)
        var table=document.getElementById(table_name)
+       
         for(i=0;i<data.length;i++){
           row = document.createElement("tr");
           cellA = document.createElement("td");
@@ -38,10 +55,19 @@
           char1.innerHTML=" | "
           
 
-          add.innerHTML="Add"
-          add.href=""
+          
+          
+          
+        
+        var id=data[i].job_id
+         add.innerHTML="Add"
+         add.id=id+"_add"
+         add.href=""
+         add.setAttribute("onclick","click(this.id,'myjobs/')")
+          
           view.innerHTML="View"
           view.href=""
+          
           cellF.append(view)
           cellF.append(char1)
           
