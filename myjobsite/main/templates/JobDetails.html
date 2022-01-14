@@ -1,38 +1,50 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
-        
+        <script type="text/javascript">
+            function doc(){
+            console.log("hello")
+            id=document.getElementById('session').innerHTML
+            add=document.getElementById('add')
+            add.id=id+"_add"
+            console.log(add.id)
+            add.href="../../alljobs?id="+add.id
+            }
+        </script>
+        <div style="display:none" id='session' name="session">{{id}}</div>
     </head>
-    <body>
+    
+    <body onload="doc()">
         
 	
 		<h1>Hello {{name}},these are the job details:</h1>
-		<a href="url">Logout</a>
-		<a href="url">Dashboard</a>
+		<a href="./../../logout">Logout</a>
+		<a href="./../../">Dashboard</a>
 		<br><br>
 		 
-        <label for="title" >Title:</label>
+        <label for="title" >{{title}}</label>
         <label for="title" id="tile"></label>
 			
 		<div class="form-container" style="border: 2px solid black;width: 400px;" >
          <form action="">
 
-            <label for="desc">Description:</label>
+            <label for="desc">Description:  {{description}}</label>
 			<label for="desc" id='desc'></label>
             <br><br>
 			
-            <label for="location">Location</label>
+            <label for="location">Location:  {{location}}</label>
 			<label for="location" id='location'></label>
             <br><br>	
 			
-			<label for="category">Category:</label>
+			<label for="category">Category:  {{category}}</label>
 			<label for="category" id='category'></label>
 			
 			<br><br>
           </form>
 		</div>
-	<a href="url">Add to my Jobs</a>	
+	<a href="url" id='add'>Add to my Jobs</a>	
 		
     </body>
 </html>

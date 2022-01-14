@@ -15,7 +15,7 @@
                 height:100%;
                 width: 100%;
                 top:0px;
-                left:450px;
+                left:450px;                
             }
                 
             .register_box{
@@ -24,14 +24,17 @@
                 margin: 20px;
                 height:10%;
                 width: 10%;
-                left:8%;            }
+                left:8%;    
+                    }
+
+            }
         </style>
     </head>
     <body>
         <div>
         <div class="register_box">
-		<div class="form-container" style="border: 2px solid black;width: 400px;">
-         <form action ="/user/register/save"  method="POST" enctype="multipart/form-data">
+		<div class="form-container" style="border: 2px solid black;width: 400px;" id='box'>
+         <form action ="/user/register/save"  method="POST" enctype="multipart/form-data" id='box_s'>
              {% csrf_token %}
 		 <h1> Register</h1>
             <label for="f_name" >First Name:</label>
@@ -64,8 +67,8 @@
         </div>
 
         <div class="login_box">
-		<div class="form-container"style="border: 2px solid black;width: 300px;" id="login_box">
-		    <form action ="/user/register/login"  method="POST">
+		<div class="form-container"style="border: 2px solid black;width: 300px;" id="box">
+		    <form action ="/user/register/login"  method="POST" id='box_s'> 
                 {% csrf_token %}
 			<h1>Login</h1>
             <label for="email">Email</label>

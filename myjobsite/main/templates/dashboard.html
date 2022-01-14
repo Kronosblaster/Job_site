@@ -15,27 +15,15 @@
       top:90px;
       left:440px;
     }
+  
   </style>
 
   <script type="text/javascript">
 
-function click(clicked,url) {
-        console.log(clicked)
-        console.log("hello")
-
-            }
-
     const url1='getJobData/';
     const url2='getJobDataAll/';
 
-    function send_job_id(url,job_id){
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', url);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.send(job_id);
-         }
-
+  
     function dataGet_E(url,table_name){
     data=fetch(url).then(data=>{return data.json()}).then(
     data=>{
@@ -62,12 +50,12 @@ function click(clicked,url) {
         var id=data[i].job_id
          add.innerHTML="Add"
          add.id=id+"_add"
-         add.href=""
-         add.setAttribute("onclick","click(this.id,'myjobs/')")
+         add.href="alljobs?id="+add.id
           
           view.innerHTML="View"
-          view.href=""
-          
+          view.id=id+"_view"
+          view.href="alljobs?id="+view.id
+
           cellF.append(view)
           cellF.append(char1)
           
@@ -75,7 +63,9 @@ function click(clicked,url) {
           if(data[i].email==document.getElementById('email_session').innerHTML){
             remove=document.createElement("a");
             remove.innerHTML="Remove"
-            remove.href=""
+            remove.id=id+"_remove"
+            remove.href="alljobs?id="+remove.id
+
             cellF.append(remove)
 
             char2=document.createElement("text");
@@ -84,7 +74,9 @@ function click(clicked,url) {
 
             edit=document.createElement("a");
             edit.innerHTML="Edit"
-            edit.href=""
+            edit.id=id+"_edit"
+            edit.href="alljobs?id="+edit.id
+
             cellF.append(edit)
 
             char3=document.createElement("text");
@@ -125,16 +117,22 @@ function click(clicked,url) {
           char1.innerHTML=" | "
           char2=document.createElement("text");
           char2.innerHTML=" | "
+          var id=data[i].job_id
 
           view=document.createElement("a");
           view.innerHTML="View"
-          view.href=""
+          view.id=id+"_view"
+          view.href="myjobs?id="+view.id
+
           done=document.createElement("a");
           done.innerHTML="Done"
-          done.href=""
+          done.id=id+"_done"
+          done.href="myjobs?id="+done.id
+
           giveup=document.createElement("a");
           giveup.innerHTML="Give up"
-          giveup.href=""
+          giveup.id=id+"_giveup"
+          giveup.href="myjobs?id="+giveup.id
 
           cellL.appendChild(view)
           cellL.appendChild(char1)
@@ -162,6 +160,7 @@ function click(clicked,url) {
 
 
 <body>
+  <div class="box">
   <h1>Hello {{name}}!</h1>
   <div id="job"></div>
   <h1>Everybody's job</h1>
@@ -200,6 +199,7 @@ function click(clicked,url) {
             {% endfor %}
         </ul>
         {% endif %}</div>
+      </div>
 </body>
 
 </html>

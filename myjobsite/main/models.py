@@ -24,7 +24,7 @@ class Jobs(models.Model):
 class MyJobs(models.Model):
     email = models.EmailField(max_length=254)
     title = models.EmailField(max_length=254)
-
+    job_id=models.AutoField(auto_created = True,primary_key=True)
     class Meta:
         unique_together = (('email', 'title'))
 
